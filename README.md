@@ -1,0 +1,4 @@
+# CS256ShortInvestigation
+Short Investigation exploring graphs and relations. Using a call graph to track social interactions in times of a virus.
+
+With all the craziness going on this year, the perfect real-world example of a graph implementation would to be track social interactions among people to determine who would most likely catch a virus. In fact, google and apple have recently teamed up to implement this to track coronavirus and enforce social distancing. So, my underlying structure would be a call graph, which are commonly used for communication and determining points of interests. In this case, vertex would represent a person and undirected edges would represent if they have come into physical contact with each other. The edges would be undirected since physical interaction requires both parties and they would have an equal chance of catching a virus. 
