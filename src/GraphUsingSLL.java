@@ -1,6 +1,8 @@
+import java.util.ArrayList;
+
 public class GraphUsingSLL {
 
-    Vertex[] arrayOfLists;
+    ArrayList<Vertex> arrayOfLists;
     int indexCounter = 0;
     boolean undirected = true;
 
@@ -8,27 +10,40 @@ public class GraphUsingSLL {
         if(graphType.equals("directed")) {
             undirected = false;
         }
-        arrayOfLists = new Vertex[vertexCount];
+        arrayOfLists = new ArrayList<>();
     }
 
     public void addVertex(String vertexName) {
-        arrayOfLists[indexCounter] = new Vertex(vertexName, null);
+        arrayOfLists.add(new Vertex(vertexName, null));
     }
 
     public void addEdge(String sourceVertexName, String destinationVertexName) {
         int vertexOne = indexForName(sourceVertexName);
         int vertexTwo = indexForName(destinationVertexName);
 
-        arrayOfLists[vertexOne].adjList = new Node(vertexTwo, arrayOfLists[vertexOne].adjList);
+        System.out.println("Vertex 1 ID: " + vertexOne);
+        System.out.println("Vertex 2 ID: " + vertexTwo);
+
+
+        arrayOfLists.get(vertexOne).adjList = new Node(vertexTwo, arrayOfLists.get(vertexOne).adjList);
         if(undirected) {
-            arrayOfLists[vertexTwo].adjList = new Node(vertexOne, arrayOfLists[vertexTwo].adjList);
+            arrayOfLists.get(vertexTwo).adjList = new Node(vertexOne, arrayOfLists.get(vertexTwo).adjList);
         }
+    }
+
+    public boolean edgeAlreadyExists(Vertex source, Vertex destination) {
+        while (source.adjList.next != null) {
+            if(source.adjList.next.vertexIndex == destination.adjList.vertexIndex){
+                return true;
+            }
+        }
+        return false;
     }
 
     private int indexForName(String s) {
         // Search through array to find where the vertices exists and return index position of that given index
-        for (int i = 0; i < arrayOfLists.length; i++) {
-            if(arrayOfLists[i].name.equals(s)) {
+        for (int i = 0; i < arrayOfLists.size(); i++) {
+            if(arrayOfLists.get(i).name.equals(s)) {
                 return i;
             }
         }
@@ -37,10 +52,10 @@ public class GraphUsingSLL {
 
     public void print() {
         System.out.println();
-        for (int i = 0; i < arrayOfLists.length; i++) {
-            System.out.println(arrayOfLists[i].name);
-            for (Node node = arrayOfLists[i].adjList; node != null; node = node.next) {
-                System.out.println("----->" + arrayOfLists[node.vertexIndex].name);
+        for (int i = 0; i < arrayOfLists.size(); i++) {
+            System.out.print(arrayOfLists.get(i).name);
+            for (Node node = arrayOfLists.get(i).adjList; node != null; node = node.next) {
+                System.out.print("----->" + arrayOfLists.get(node.vertexIndex).name);
             }
             System.out.println("\n");
         }
@@ -71,10 +86,9 @@ public class GraphUsingSLL {
         graph.addVertex("Kevin");
         graph.addVertex("Adam");
 
-
+        graph.addEdge("David", "Adam");
         graph.addEdge("David", "Adam");
 
-
-
+        graph.print();
     }
 }
