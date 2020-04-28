@@ -34,7 +34,7 @@ public class InfectedWeightedGraphUsingSLL {
 
         int maxEdges = vertices * 4; // This number simulates how social the people are (lower means social distancing, higher means people are very social)
         if(socialDistancing == 1) {
-            maxEdges = maxEdges / 2; // Chop interactions in half if they are social distancing
+            maxEdges = maxEdges / 3; // Chop interactions in half if they are social distancing
         }
 
         //Randomly Assign Edges
@@ -65,8 +65,6 @@ public class InfectedWeightedGraphUsingSLL {
 
     //Weighted Edge graph
     class Edge {
-        Vertex source;
-        Vertex destination;
         int weight;
         int vertexIndex;
         public Edge next;
@@ -77,16 +75,7 @@ public class InfectedWeightedGraphUsingSLL {
             next = node;
         }
     }
-    //Custom Node class
-    class Node {
-        int vertexIndex;
-        public Node next;
 
-        public Node(int vertexIndex, Node node) {
-            this.vertexIndex = vertexIndex;
-            next = node;
-        }
-    }
     public void addVertex(String vertexName) {
         arrayOfLists.add(new Vertex(vertexName, null));
     }
@@ -149,7 +138,7 @@ public class InfectedWeightedGraphUsingSLL {
         }
 
         //Print out those likely infected
-        System.out.println("\nAre likely infected: ");
+        System.out.print("\nAre likely infected: ");
         for (int i = 0; i <likelyToBeInfectedPeople.size() ; i++) {
             System.out.print(likelyToBeInfectedPeople.get(i).name + " ");
         }
