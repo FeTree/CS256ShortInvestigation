@@ -14,7 +14,7 @@ public class InfectedWeightedGraphUsingSLL {
 
     //Store infected people
     ArrayList<Vertex> infectedPeople = new ArrayList<>();
-    //Store those likely to be infected (have been coughed on more than 5 times)
+    //Store those likely to be infected (have been coughed on more than 6 times)
     ArrayList<Vertex> likelyToBeInfectedPeople = new ArrayList<>();
 
     public InfectedWeightedGraphUsingSLL(int vertices, int infectedNumber, int socialDistancing) {
@@ -34,15 +34,13 @@ public class InfectedWeightedGraphUsingSLL {
 
         int maxEdges = vertices * 4; // This number simulates how social the people are (lower means social distancing, higher means people are very social)
         if(socialDistancing == 1) {
-            maxEdges = maxEdges / 3; // Chop interactions in half if they are social distancing
+            maxEdges = maxEdges / 3; // Chop interactions by a third if they are social distancing
         }
 
         //Randomly Assign Edges
         int randomNumberOfEdges = random.nextInt(maxEdges);
         for (int i = 0; i < randomNumberOfEdges; i++) {
             int max = arrayOfLists.size() - 1;
-            int min = 0;
-            int range = max - min +1;
             int randomIndexForSource = random.nextInt(max);
             int randomIndexForDestination = random.nextInt(max);
             addEdge(arrayOfLists.get(randomIndexForSource).name, arrayOfLists.get(randomIndexForDestination).name);
